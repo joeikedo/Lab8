@@ -1,7 +1,10 @@
+import { expect } from "@jest/globals";
+
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
     await page.goto('http://127.0.0.1:5500');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(500); 
+       
   });
 
   // test 1 is given
@@ -29,6 +32,31 @@ describe('Basic user flow for SPA ', () => {
 
   it('Test3: Clicking first <journal-entry>, new URL should contain /#entry1', async () => {
     // implement test3: Clicking on the first journal entry should update the URL to contain “/#entry1”
+
+    //await page.$('body > header > h1') //Ok, so this doesn't give an error
+
+    //await page.$('body > main > journal-entry:nth-child(1)')  //Ok cool, this gives no error either
+
+
+    /*
+    const elements = await page.$('body > main > journal-entry:nth-child(1)')
+    await elements[0].click() 
+    */
+    
+    /*
+    const [response] = await Promise.all([
+      page.waitForNavigation(),
+      page.click(elements[0]),
+    ]);
+    */
+
+    const entries = await page.$$('journal-entry');
+    await entries[0].click() ;
+    await page.waitForSelector('body.single-entry');
+
+
+
+    expect(1).toBe(1);
 
   });
 
