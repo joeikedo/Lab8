@@ -33,35 +33,27 @@ describe('Basic user flow for SPA ', () => {
   it('Test3: Clicking first <journal-entry>, new URL should contain /#entry1', async () => {
     // implement test3: Clicking on the first journal entry should update the URL to contain “/#entry1”
 
-    //await page.$('body > header > h1') //Ok, so this doesn't give an error
 
-    //await page.$('body > main > journal-entry:nth-child(1)')  //Ok cool, this gives no error either
-
-
-    /*
-    const elements = await page.$('body > main > journal-entry:nth-child(1)')
-    await elements[0].click() 
-    */
-    
-    /*
-    const [response] = await Promise.all([
-      page.waitForNavigation(),
-      page.click(elements[0]),
-    ]);
-    */
-
-    const entries = await page.$$('journal-entry');
-    await entries[0].click() ;
-    await page.waitForSelector('body.single-entry');
+    //It works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    await page.$eval( 'journal-entry', form => form.click() );
+    //expect(page.url()).toMatch(/killmeplease/); //Just to test that this won't work
+    expect(page.url()).toMatch(/#entry1/); //This should check if it contains /#entry1
 
 
-
-    expect(1).toBe(1);
 
   });
 
   it('Test4: On first Entry page - checking page header title', async () => {
     // implement test4: Clicking on the first journal entry should update the header text to “Entry 1” 
+
+    await page.$eval( 'journal-entry', form => form.click() );
+
+    //Maybe check if the Entry 1 text is on the page first?
+    
+    expect(page.url()).toMatch(/#entry1/);
+
+    
+
 
   });
 
