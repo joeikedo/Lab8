@@ -7,6 +7,8 @@ describe('Basic user flow for SPA ', () => {
        
   });
 
+  /*//bruh get rid of this later-----------------------------------------------------------------------------------
+
   // test 1 is given
   it('Test1: Initial Home Page - Check for 10 Journal Entries', async () => {
     const numEntries = await page.$$eval('journal-entry', (entries) => {
@@ -60,6 +62,8 @@ describe('Basic user flow for SPA ', () => {
 
   });
 
+  */ //bruh get rid of this later-----------------------------------------------------------------------------------
+
   it('Test5: On first Entry page - checking <entry-page> contents', async () => {
     /*
      implement test5: Clicking on the first journal entry should contain the following contents: 
@@ -91,6 +95,8 @@ describe('Basic user flow for SPA ', () => {
 
   }, 10000);
 
+  /*//bruh get rid of this later -----------------------------------------------------------------------------------
+
   it('Test6: On first Entry page - checking <body> element classes', async () => {
     // implement test6: Clicking on the first journal entry should update the class attribute of <body> to ‘single-entry’
 
@@ -121,27 +127,90 @@ describe('Basic user flow for SPA ', () => {
   it('Test8: On Settings page - checking page header title', async () => {
     // implement test8: Clicking on the settings icon should update the header to be “Settings”
 
+    await page.$eval( 'img', form => form.click() );
     
+    let element = await page.$('h1')
+    let value = await page.evaluate(el => el.textContent, element)
+    
+    expect(value).toMatch(/Settings/);
 
   });
 
   it('Test9: On Settings page - checking <body> element classes', async () => {
     // implement test9: Clicking on the settings icon should update the class attribute of <body> to ‘settings’
 
+    await page.$eval( 'img', form => form.click() );
+
+    const el = await page.$('body');
+
+    const className = await (await el.getProperty('className')).jsonValue();
+
+    expect(className).toBe('settings');
+
   });
+
+  
 
   it('Test10: Clicking the back button, new URL should be /#entry1', async() => {
     // implement test10: Clicking on the back button should update the URL to contain ‘/#entry1’
 
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
+
+    await page.$eval( 'img', form => form.click() );
+
+
+    await page.goBack(); //Simulates clikcing the back button
+
+    
+    let placeholder = '/#entry1'; //Using this placeholder because regex doesn't like forward slashes
+    expect(page.url()).toMatch(placeholder); //This should check if it contains /#entry1
+    
+
+
   });
 
+
   // define and implement test11: Clicking the back button once should bring the user back to the home page
+  it('Test11: Clicking the back button once should bring the user back to the home page', async() => {
+    let placeHolder = page.url(); //starting url (home)
+
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
+
+    await page.goBack(); //Simulates clikcing the back button
+
+    
+ 
+    expect(page.url()).toBe(placeHolder); //This should check if it contains /#entry1
+    
+
+
+  });
 
 
   // define and implement test12: When the user if on the homepage, the header title should be “Journal Entries”
+  it('Test12: When the user if on the homepage, the header title should be “Journal Entries', async() => {
+
+    let element = await page.$('h1')
+    let value = await page.evaluate(el => el.textContent, element)
+    
+    expect(value).toBe('Journal Entries');
+
+  });
+
+  */ //bruh get rid of this later -----------------------------------------------------------------------------------
 
 
   // define and implement test13: On the home page the <body> element should not have any class attribute 
+  it('Test13: On the home page the <body> element should not have any class attribute ', async () => {
+    // implement test9: Clicking on the settings icon should update the class attribute of <body> to ‘settings’
+
+    const el = await page.$('body');
+
+    const className = await (await el.getProperty('className')).jsonValue();
+
+    expect(className).toBe('');
+
+  });
 
 
   // define and implement test14: Verify the url is correct when clicking on the second entry
