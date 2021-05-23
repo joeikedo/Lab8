@@ -195,6 +195,8 @@ describe('Basic user flow for SPA ', () => {
   // define and implement test12: When the user if on the homepage, the header title should be “Journal Entries”
   it('Test12: When the user if on the homepage, the header title should be “Journal Entries', async() => {
 
+    await page.$eval( 'h1', form => form.click() ); //Click on header
+
     let element = await page.$('h1')
     let value = await page.evaluate(el => el.textContent, element)
     
@@ -207,7 +209,8 @@ describe('Basic user flow for SPA ', () => {
 
   // define and implement test13: On the home page the <body> element should not have any class attribute 
   it('Test13: On the home page the <body> element should not have any class attribute ', async () => {
-    // implement test9: Clicking on the settings icon should update the class attribute of <body> to ‘settings’
+
+    await page.$eval( 'h1', form => form.click() ); //Click on header
 
     const el = await page.$('body');
 
