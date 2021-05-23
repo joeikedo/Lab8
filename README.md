@@ -1,4 +1,9 @@
 # Lab8_Starter
+## Authors
+- Joe Ikedo
+- Ikjoon Park
+
+[Relative path link to screenshots](screenshots)
 
 ## Check your understanding q's (FILL OUT)
 1. In your own words: Where would you fit your automated tests in your Bujo project development pipeline? (just write the letter)
