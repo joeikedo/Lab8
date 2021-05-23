@@ -34,25 +34,28 @@ describe('Basic user flow for SPA ', () => {
     // implement test3: Clicking on the first journal entry should update the URL to contain “/#entry1”
 
 
-    //It works!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    await page.$eval( 'journal-entry', form => form.click() );
+   
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
     //expect(page.url()).toMatch(/killmeplease/); //Just to test that this won't work
-    expect(page.url()).toMatch(/#entry1/); //This should check if it contains /#entry1
+    let placeholder = '/#entry1';
+    expect(page.url()).toMatch(placeholder); //This should check if it contains /#entry1
 
-
+    //This works!
 
   });
 
   it('Test4: On first Entry page - checking page header title', async () => {
     // implement test4: Clicking on the first journal entry should update the header text to “Entry 1” 
 
-    await page.$eval( 'journal-entry', form => form.click() );
-
-    //Maybe check if the Entry 1 text is on the page first?
-    
-    expect(page.url()).toMatch(/#entry1/);
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
 
     
+    let element = await page.$('h1')
+    let value = await page.evaluate(el => el.textContent, element)
+    
+    expect(value).toMatch(/Entry 1/);
+
+    //This works!
 
 
   });
@@ -70,21 +73,55 @@ describe('Basic user flow for SPA ', () => {
           }
         }
       */
+    
+
+    /*
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
+
+    const [elementHandle] = await page.$x('/html/body/main/journal-entry[1]');
+    const propertyHandle = await elementHandle.getProperty('innerText');
+    const propertyValue = await propertyHandle.jsonValue();
+
+    expect(propertyValue).toMatch(/kill me/);
+    */
+
+    //I'm gonna try and come back to this one
+    
+    //!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   }, 10000);
 
   it('Test6: On first Entry page - checking <body> element classes', async () => {
     // implement test6: Clicking on the first journal entry should update the class attribute of <body> to ‘single-entry’
 
+    await page.$eval( 'journal-entry', form => form.click() ); //Click on first entry
+
+    const el = await page.$('body');
+
+    const className = await (await el.getProperty('className')).jsonValue();
+
+    expect(className).toBe('single-entry');
+
+    //It works!
+
   });
 
   it('Test7: Clicking the settings icon, new URL should contain #settings', async () => {
     // implement test7: Clicking on the settings icon should update the URL to contain “/#settings”
 
+    await page.$eval( 'img', form => form.click() );
+
+    let placeholder = '/#settings'; //Using this placeholder because regex doesn't like forward slashes
+    expect(page.url()).toMatch(placeholder); //This should check if it contains /#settings
+
+    //It works!
+
   });
 
   it('Test8: On Settings page - checking page header title', async () => {
     // implement test8: Clicking on the settings icon should update the header to be “Settings”
+
+    
 
   });
 
